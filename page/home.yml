@@ -1,0 +1,17 @@
+settings:
+  layout:
+    - html
+    - main
+  title: Home - Webadmin
+content:
+  -
+    type: div
+    attribute:
+      id: webadmin_home
+    innerHTML: 'home...'
+  -
+    type: script
+    innerHTML: |
+      PluginWfAjax.load('webadmin_home', '/[[class]]/forms');
+
+  

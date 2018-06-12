@@ -1,0 +1,10 @@
+settings:
+  rewrite_globalszzz:
+    -
+      key: 'sys/settings/plugin/wf/form/enabled'
+      value: true
+content:
+  -
+    type: div
+    innerHTML: 'view....'
+  

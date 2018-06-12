@@ -1,0 +1,24 @@
+url: '/doc/upload?_time=1&dir='
+max_size: 3000000
+accept: 'txt'
+file_types:
+  0: 'text/plain'
+dir: /theme/wf/crypt/cache
+name: last_file_upload.txt
+success:
+  script: "if(typeof PluginWfAjax == 'object'){PluginWfAjax.update('wf_edit_view_body');}document.getElementById('wf_edit_upload_btn_close').click();"
+  content_to_idzzz: txt_content_decrypt
+  alertzzz: 'The file was uploaded.'
+  redirectzzz: '/img/show/file/[name]'
+  update_divzz:
+    0: block_files_content
+  close_windowzzz:
+    0: win_upload
+  open_windowzzz:
+    0:
+      id: 'img_show'
+      url: '/img/show/file/[name]'
+      width: 400
+      height: 500
+      title: 'Image'
+        

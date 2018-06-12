@@ -1,0 +1,13 @@
+settings:
+  rewrite_globalszzz:
+    -
+      key: 'sys/settings/plugin/wf/form/enabled'
+      value: true
+content:
+  main:
+    type: div
+    attribute:
+      style: 'background:gray;padding:10px;'
+    innerHTML: 'file....'
+    
+  

@@ -1,0 +1,10 @@
+settings:
+  rewrite_globals:
+    -
+      key: 'sys/settings/plugin/wf/table/enabled'
+      value: true
+content:
+  -
+    type: div
+    innerHTML: 'list....'
+  

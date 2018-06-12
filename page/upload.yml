@@ -1,0 +1,11 @@
+settings:
+  rewrite_globals:
+    -
+      key: 'sys/settings/plugin/wf/formupload/enabled'
+      value: true
+content:
+  main:
+    type: div
+    innerHTML: 'upload....'
+    
+  

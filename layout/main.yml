@@ -1,0 +1,27 @@
+settings:
+  path: 'container/innerHTML/main/innerHTML/form/innerHTML'
+content:
+  style:
+    type: style
+    innerHTML: '.wf_form_row{margin-top:10px;}'
+  container:
+    type: div
+    attribute:
+      class: 'container'
+    innerHTML:
+      main:
+        type: div
+        attribute:
+          class: 'panel panel-default'
+        innerHTML:
+          heading:
+            type: div
+            attribute:
+              class: 'panel-heading'
+            innerHTML: 'Forms'
+          form:
+            type: div
+            attribute:
+              class: 'panel-body'
+            innerHTML:
+      
