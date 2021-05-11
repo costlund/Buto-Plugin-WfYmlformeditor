@@ -1,14 +1,4 @@
 <?php
-/**
-Edit forms.
-Only if user has role ymlformeditor.
-In theme /config/settings.yml
-plugin_modules:
-  ymlformeditor:
-    plugin: 'wf/ymlformeditor'
-    settings:
-      dir: '/theme/[theme]/data/ymlformeditor'
- */
 class PluginWfYmlformeditor{
   function __construct($buto) {
     if($buto){
