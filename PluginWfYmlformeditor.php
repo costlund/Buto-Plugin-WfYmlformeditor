@@ -79,7 +79,7 @@ class PluginWfYmlformeditor{
     $element = array();
     $element[] = $table;
     // New post button.
-    $element[] = wfDocument::createHtmlElement('script', "if(!document.getElementById('btn_new')){ PluginWfDom.render([{type: 'button', attribute: {type: 'button', class: 'btn btn-default', id: 'btn_new'}, innerHTML: 'New'}], document.getElementById('wf_edit_list_footer')); } ");
+    $element[] = wfDocument::createHtmlElement('script', "if(!document.getElementById('btn_new')){ PluginWfDom.render([{type: 'button', attribute: {type: 'button', class: 'btn btn-primary', id: 'btn_new'}, innerHTML: 'New'}], document.getElementById('wf_edit_list_footer')); } ");
     $onclick = "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/ymlformeditor/edit/yml/".wfRequest::get('yml')."', lable: 'Edit'});";
     $element[] = wfDocument::createHtmlElement('script', "document.getElementById('btn_new').onclick = function(){ $onclick } ");
     wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
@@ -119,7 +119,7 @@ class PluginWfYmlformeditor{
       }
       $onclick = "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/".wfArray::get($GLOBALS, 'sys/class')."/edit/yml/".wfRequest::get('yml')."?key=".wfRequest::get('key')."', lable: 'Edit'});";
       // Edit button.
-      $element[] = wfDocument::createHtmlElement('script', "if(!document.getElementById('btn_edit')){ PluginWfDom.render([{type: 'button', attribute: {type: 'button', class: 'btn btn-default', id: 'btn_edit'}, innerHTML: 'Edit'}], document.getElementById('wf_edit_view_footer')); } ");
+      $element[] = wfDocument::createHtmlElement('script', "if(!document.getElementById('btn_edit')){ PluginWfDom.render([{type: 'button', attribute: {type: 'button', class: 'btn btn-primary', id: 'btn_edit'}, innerHTML: 'Edit'}], document.getElementById('wf_edit_view_footer')); } ");
       $element[] = wfDocument::createHtmlElement('script', "document.getElementById('btn_edit').onclick = function(){ $onclick } ");
     }
     if(wfArray::isKey($form, 'files')){
