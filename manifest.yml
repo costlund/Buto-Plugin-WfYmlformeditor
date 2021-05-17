@@ -1,12 +1,16 @@
-version: 1.0.2
+version: 1.0.3
 history:
+  1.0.3:
+    date: '2021-05-17'
+    title: Versions
+    description: 'Versions update.'
   1.0.2:
     date: '2021-05-11'
-    title: 'Buttons'
+    title: Buttons
     description: 'Add class btn-primary to buttons.'
   1.0.1:
     date: '2021-05-11'
-    title: 'Readme'
+    title: Readme
     description: 'Readme improvement.'
   1.0.0:
     date: '2021-05-11'
@@ -24,10 +28,10 @@ plugin:
     version: '1.0'
   -
     name: wf/table
-    version: 1.22.1
+    version: 1.23.0
   -
     name: wf/formupload
-    version: 1.0.0
+    version: null
 sys:
   -
     name: mercury
