@@ -1,4 +1,4 @@
-# Buto-Plugin-Ymlformeditor
+# Buto-Plugin-WfYmlformeditor
 Plugin to edit yml files.
 Role webadmin is required.
 
