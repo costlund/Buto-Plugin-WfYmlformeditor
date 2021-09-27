@@ -1,5 +1,9 @@
-version: 1.0.5
+version: 1.0.6
 history:
+  1.0.6:
+    date: '2021-09-27'
+    title: Versions
+    description: 'Versions update.'
   1.0.5:
     date: '2021-06-16'
     title: Versions
@@ -36,7 +40,7 @@ plugin:
     version: '1.0'
   -
     name: wf/table
-    version: 1.24.0
+    version: 1.25.0
   -
     name: wf/formupload
     version: null
