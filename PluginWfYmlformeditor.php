@@ -33,16 +33,16 @@ class PluginWfYmlformeditor{
       $yml = urlencode($value);
       $yml = substr($yml, 0, strlen($yml)-4);
       if(is_dir($dir.'/'.$value)){
-        $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-folder"></i> '.$value, 'onclick' => 'return false;', 'onclickzzz' => "PluginWfBootstrapjs.modal({id: 'wf_edit_list', url: '/$class/list/yml/$yml', lable: 'List'});");
+        $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-folder"></i> '.$value, 'onclick' => 'return false;', 'onclickzzz' => "PluginWfBootstrapjs.modal({id: 'wf_edit_list', url: '/$class/list/yml/$yml', lable: 'List', footer: true});");
       }elseif(strtoupper (substr($value, strlen($value)-4, 4))=='.YML'){
         $yml_form = new PluginWfArray(wfFilesystem::loadYml($dir.'/'.$value));
         if($yml_form->get('multiple_items')){
-          $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-file-text-o"></i> '.$yml_form->get('name'), 'onclick' => "PluginWfBootstrapjs.modal({id: 'wf_edit_list', url: '/$class/list/yml/$yml', lable: 'List'});return false;");
+          $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-file-text-o"></i> '.$yml_form->get('name'), 'onclick' => "PluginWfBootstrapjs.modal({id: 'wf_edit_list', url: '/$class/list/yml/$yml', lable: 'List', footer: true});return false;");
         }else{
           if(!$yml_form->get('preview_skip')){
-            $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-file-text-o"></i> '.$yml_form->get('name'), 'onclick' => "PluginWfBootstrapjs.modal({id: 'wf_edit_view', url: '/$class/view/yml/$yml', lable: '".$yml_form->get('name')."', fade: false});return false;");
+            $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-file-text-o"></i> '.$yml_form->get('name'), 'onclick' => "PluginWfBootstrapjs.modal({id: 'wf_edit_view', url: '/$class/view/yml/$yml', lable: '".$yml_form->get('name')."', fade: false, footer: true});return false;");
           }else{
-            $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-file-text-o"></i> '.$yml_form->get('name'), 'onclick' => "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/$class/edit/yml/$yml', lable: '".$yml_form->get('name')."', fade: false});return false;");
+            $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-file-text-o"></i> '.$yml_form->get('name'), 'onclick' => "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/$class/edit/yml/$yml', lable: '".$yml_form->get('name')."', fade: false, footer: true});return false;");
           }
         }
       }
@@ -69,7 +69,7 @@ class PluginWfYmlformeditor{
       }
     }
     foreach ($table_data_data as $key => $value) {
-      $onclick = "PluginWfBootstrapjs.modal({id: 'wf_edit_view', url: '/$class/view/yml/".wfRequest::get('yml')."/key/$key', lable: 'Form', fade: false});";
+      $onclick = "PluginWfBootstrapjs.modal({id: 'wf_edit_view', url: '/$class/view/yml/".wfRequest::get('yml')."/key/$key', lable: 'Form', fade: false, footer: true});";
       $table_data_data[$key]['attribute'] = array('onclick' => $onclick, 'style' => 'cursor:pointer;');
     }
     $table_data = array();
@@ -80,7 +80,7 @@ class PluginWfYmlformeditor{
     $element[] = $table;
     // New post button.
     $element[] = wfDocument::createHtmlElement('script', "if(!document.getElementById('btn_new')){ PluginWfDom.render([{type: 'button', attribute: {type: 'button', class: 'btn btn-primary', id: 'btn_new'}, innerHTML: 'New'}], document.getElementById('wf_edit_list_footer')); } ");
-    $onclick = "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/ymlformeditor/edit/yml/".wfRequest::get('yml')."', lable: 'Edit'});";
+    $onclick = "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/ymlformeditor/edit/yml/".wfRequest::get('yml')."', lable: 'Edit', footer: true});";
     $element[] = wfDocument::createHtmlElement('script', "document.getElementById('btn_new').onclick = function(){ $onclick } ");
     wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
     $page = wfFilesystem::loadYml(__DIR__.'/page/list.yml');
@@ -117,7 +117,7 @@ class PluginWfYmlformeditor{
         $element[] = wfDocument::createHtmlElement('div', wfArray::get($value, 'label'), array('style' => 'font-weight:bold'));
         $element[] = wfDocument::createHtmlElement('div', str_replace("\n", '<br>', self::handleOutput(wfArray::get($value, 'default'))), array('style' => 'min-height:20px;'));
       }
-      $onclick = "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/".wfArray::get($GLOBALS, 'sys/class')."/edit/yml/".wfRequest::get('yml')."?key=".wfRequest::get('key')."', lable: 'Edit'});";
+      $onclick = "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/".wfArray::get($GLOBALS, 'sys/class')."/edit/yml/".wfRequest::get('yml')."?key=".wfRequest::get('key')."', lable: 'Edit', footer: true});";
       // Edit button.
       $element[] = wfDocument::createHtmlElement('script', "if(!document.getElementById('btn_edit')){ PluginWfDom.render([{type: 'button', attribute: {type: 'button', class: 'btn btn-primary', id: 'btn_edit'}, innerHTML: 'Edit'}], document.getElementById('wf_edit_view_footer')); } ");
       $element[] = wfDocument::createHtmlElement('script', "document.getElementById('btn_edit').onclick = function(){ $onclick } ");
@@ -175,7 +175,7 @@ class PluginWfYmlformeditor{
         $rewrite['col/innerHTML/thumbnail/innerHTML/img/attribute/title'] = $src;
         $rewrite['col/innerHTML/thumbnail/innerHTML/div/innerHTML/p2/innerHTML/a/attribute/class'] = 'btn btn-warning';
       }else{
-        $onclick = "PluginWfBootstrapjs.modal({id: 'wf_edit_upload', url: '/".$data['class']."/upload/yml/".wfRequest::get('yml')."/files/$key/key/".wfRequest::get('key')."', lable: 'Upload $name'});";
+        $onclick = "PluginWfBootstrapjs.modal({id: 'wf_edit_upload', url: '/".$data['class']."/upload/yml/".wfRequest::get('yml')."/files/$key/key/".wfRequest::get('key')."', lable: 'Upload $name', footer: true});";
         $rewrite['col/innerHTML/thumbnail/innerHTML/div/innerHTML/p2/innerHTML/a/innerHTML'] = 'Upload';
         $rewrite['col/innerHTML/thumbnail/innerHTML/div/innerHTML/p2/innerHTML/a/attribute/onclick'] = $onclick;
         $rewrite['col/innerHTML/thumbnail/innerHTML/img/attribute/style'] = 'display:none';
