@@ -12,7 +12,7 @@ class PluginWfYmlformeditor{
    * Start page.
    */
   public static function page_home(){
-    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
+    wfGlobals::setSys('layout_path', '/plugin/wf/ymlformeditor/layout');
     $page = wfFilesystem::loadYml(__DIR__.'/page/home.yml');
     wfDocument::mergeLayout($page);
   }
@@ -21,7 +21,7 @@ class PluginWfYmlformeditor{
   */
   public static function page_forms(){
     $settings = wfPlugin::getModuleSettings();
-    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
+    wfGlobals::setSys('layout_path', '/plugin/wf/ymlformeditor/layout');
     if(!wfArray::get($settings, 'dir')){
       exit('Dir is not set...');
     }
@@ -31,10 +31,10 @@ class PluginWfYmlformeditor{
     $class = wfArray::get($GLOBALS, 'sys/class');
     foreach ($yml_files as $key => $value) {
       $yml = urlencode($value);
-      $yml = substr($yml, 0, strlen($yml)-4);
+      $yml = wfPhpfunc::substr($yml, 0, wfPhpfunc::strlen($yml)-4);
       if(is_dir($dir.'/'.$value)){
         $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-folder"></i> '.$value, 'onclick' => 'return false;', 'onclickzzz' => "PluginWfBootstrapjs.modal({id: 'wf_edit_list', url: '/$class/list/yml/$yml', lable: 'List', footer: true});");
-      }elseif(strtoupper (substr($value, strlen($value)-4, 4))=='.YML'){
+      }elseif(strtoupper (wfPhpfunc::substr($value, wfPhpfunc::strlen($value)-4, 4))=='.YML'){
         $yml_form = new PluginWfArray(wfFilesystem::loadYml($dir.'/'.$value));
         if($yml_form->get('multiple_items')){
           $item[] = array('href' => '#', 'innerHTML' => '<i class="fa fa-file-text-o"></i> '.$yml_form->get('name'), 'onclick' => "PluginWfBootstrapjs.modal({id: 'wf_edit_list', url: '/$class/list/yml/$yml', lable: 'List', footer: true});return false;");
@@ -82,7 +82,7 @@ class PluginWfYmlformeditor{
     $element[] = wfDocument::createHtmlElement('script', "if(!document.getElementById('btn_new')){ PluginWfDom.render([{type: 'button', attribute: {type: 'button', class: 'btn btn-primary', id: 'btn_new'}, innerHTML: 'New'}], document.getElementById('wf_edit_list_footer')); } ");
     $onclick = "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/ymlformeditor/edit/yml/".wfRequest::get('yml')."', lable: 'Edit', footer: true});";
     $element[] = wfDocument::createHtmlElement('script', "document.getElementById('btn_new').onclick = function(){ $onclick } ");
-    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
+    wfGlobals::setSys('layout_path', '/plugin/wf/ymlformeditor/layout');
     $page = wfFilesystem::loadYml(__DIR__.'/page/list.yml');
     $page = wfArray::set($page, 'content', $element);
     wfDocument::mergeLayout($page);
@@ -99,7 +99,7 @@ class PluginWfYmlformeditor{
     $form_upload = wfFilesystem::loadYml(__DIR__.'/config/upload_form.yml');
     $form_upload = wfArray::set($form_upload, 'url', '/'.wfArray::get($GLOBALS, 'sys/class').'/uploadsend?yml='.wfRequest::get('yml').'&files='.wfRequest::get('files').'&key='.wfRequest::get('key'));
     $name = wfArray::get($data, 'yml_form/files/'.wfRequest::get('files').'/name');
-    $name = str_replace('[key]', wfRequest::get('key'), $name);
+    $name = wfPhpfunc::str_replace('[key]', wfRequest::get('key'), $name);
     $form_upload = wfArray::set($form_upload, 'name', $name);
     $form_upload = wfArray::set($form_upload, 'dir', wfArray::get($data, 'yml_form/files/'.wfRequest::get('files').'/dir'));
     $form_upload = wfArray::set($form_upload, 'accept', wfArray::get($data, 'yml_form/files/'.wfRequest::get('files').'/type'));
@@ -115,7 +115,7 @@ class PluginWfYmlformeditor{
       foreach (wfArray::get($form, 'form/data/items') as $key => $value) {
         if(wfArray::get($value, 'type') == 'hidden'){ continue; }
         $element[] = wfDocument::createHtmlElement('div', wfArray::get($value, 'label'), array('style' => 'font-weight:bold'));
-        $element[] = wfDocument::createHtmlElement('div', str_replace("\n", '<br>', self::handleOutput(wfArray::get($value, 'default'))), array('style' => 'min-height:20px;'));
+        $element[] = wfDocument::createHtmlElement('div', wfPhpfunc::str_replace("\n", '<br>', self::handleOutput(wfArray::get($value, 'default'))), array('style' => 'min-height:20px;'));
       }
       $onclick = "PluginWfBootstrapjs.modal({id: 'ymlformeditor_edit', url: '/".wfArray::get($GLOBALS, 'sys/class')."/edit/yml/".wfRequest::get('yml')."?key=".wfRequest::get('key')."', lable: 'Edit', footer: true});";
       // Edit button.
@@ -125,7 +125,7 @@ class PluginWfYmlformeditor{
     if(wfArray::isKey($form, 'files')){
       $element[] = wfDocument::createHtmlElement('div', "load:/[class]/file/yml/".wfRequest::get('yml')."/key/".wfRequest::get('key'), array('id' => "yml_editor_file_".wfRequest::get('key')));
     }
-    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
+    wfGlobals::setSys('layout_path', '/plugin/wf/ymlformeditor/layout');
     $page = wfFilesystem::loadYml(__DIR__.'/page/edit.yml');
     $page = wfArray::set($page, 'content', $element);
     wfDocument::mergeLayout($page);
@@ -147,11 +147,11 @@ class PluginWfYmlformeditor{
     $element = array();
     foreach (wfArray::get($data, 'form/files') as $key => $value) {
       $name = wfArray::get($value, 'name');
-      $name = str_replace('[key]', wfRequest::get('key'), $name);
+      $name = wfPhpfunc::str_replace('[key]', wfRequest::get('key'), $name);
       $dir = wfSettings::replaceDir(wfArray::get($value, 'dir'));
       $dir .= '/'.$name;
       $src = wfSettings::replaceTheme(wfArray::get($value, 'dir'));
-      $src = str_replace('[web_dir]', '', $src);
+      $src = wfPhpfunc::str_replace('[web_dir]', '', $src);
       $src .= '/'.$name;
       $src .= '?filetime='.wfFilesystem::getFiletime($dir);
       $rewrite = array();
@@ -184,7 +184,7 @@ class PluginWfYmlformeditor{
       $element[] = wfDocument::createWidget('wf/bootstrap', 'thumbnail', $thumbnail);
     }
     $element = wfDocument::createHtmlElement('div', $element, array('class' => 'row'));
-    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
+    wfGlobals::setSys('layout_path', '/plugin/wf/ymlformeditor/layout');
     $page = wfFilesystem::loadYml(__DIR__.'/page/file.yml');
     $page = wfArray::set($page, 'content/main/innerHTML', array($element));
     wfDocument::mergeLayout($page);
@@ -206,7 +206,7 @@ class PluginWfYmlformeditor{
       return false;
     }
     $name = wfArray::get($data, 'yml_form/files/'.$file_key.'/name');
-    $name = str_replace('[key]', $key, $name);
+    $name = wfPhpfunc::str_replace('[key]', $key, $name);
     $dir = wfArray::get($data, 'yml_form/files/'.$file_key.'/dir');
     $dir = wfSettings::replaceDir($dir);
     $dir .= '/'.$name;
@@ -222,7 +222,7 @@ class PluginWfYmlformeditor{
     $form_upload = self::init_upload_form($data);
     $element = array();
     $element[] = wfDocument::createWidget('wf/formupload', 'render', $form_upload);
-    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
+    wfGlobals::setSys('layout_path', '/plugin/wf/ymlformeditor/layout');
     $page = wfFilesystem::loadYml(__DIR__.'/page/upload.yml');
     $page = wfArray::set($page, 'content', $element);
     wfDocument::mergeLayout($page);
@@ -232,7 +232,7 @@ class PluginWfYmlformeditor{
     $form_upload = self::init_upload_form($data);
     $element = array();
     $element[] = wfDocument::createWidget('wf/formupload', 'upload', $form_upload);
-    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
+    wfGlobals::setSys('layout_path', '/plugin/wf/ymlformeditor/layout');
     $page = wfFilesystem::loadYml(__DIR__.'/page/upload.yml');
     $page = wfArray::set($page, 'content', $element);
     wfDocument::mergeLayout($page);
@@ -249,7 +249,7 @@ class PluginWfYmlformeditor{
       $class = wfArray::get($GLOBALS, 'sys/class');
       $onclick = "if(confirm('Are you sure?')){ $.get('/$class/delete/yml/".wfRequest::get('yml')."/key/".wfRequest::get('key')."',   function(data) { PluginWfCallbackjson.call( data ); }  );}";
     }
-    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/wf/ymlformeditor/layout');
+    wfGlobals::setSys('layout_path', '/plugin/wf/ymlformeditor/layout');
     $page = wfFilesystem::loadYml(__DIR__.'/page/edit.yml');
     $page = wfArray::set($page, 'content', $element);
     wfDocument::mergeLayout($page);
