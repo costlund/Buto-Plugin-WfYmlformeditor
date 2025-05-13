@@ -6,6 +6,10 @@ class PluginWfYmlformeditor{
       wfPlugin::enable('wf/bootstrap');
       wfPlugin::enable('wf/form_v2');
       wfPlugin::includeonce('wf/array');
+      wfPlugin::enable('twitter/bootstrap335v');
+      wfPlugin::enable('wf/ajax');
+      wfPlugin::enable('wf/bootstrapjs');
+      wfPlugin::enable('wf/dom');
     }
   }
   /**
